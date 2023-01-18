@@ -55,5 +55,3 @@ Action_CloneDashAttack
       -Attack Anim Delay - .18
       -Attack Anim - Dash_Attack_Montage
       -Casting Sound - Buff_Attack_9_2_Cue
-      
-No_Wrap Format Test
