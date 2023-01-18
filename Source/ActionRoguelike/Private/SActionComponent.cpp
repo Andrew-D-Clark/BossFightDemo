@@ -80,14 +80,13 @@ void USActionComponent::AddAction(AActor* Instigator, TSubclassOf<USAction> Acti
 		UE_LOG(LogTemp, Warning, TEXT("Client attempting to AddAction. [Class: %s]"), *GetNameSafe(ActionClass));
 		return;
 	}
-	//Check if the component already has an action of the same class 
+	//Check if the action component already has an action of the same class
 	USAction* existingAction = GetAction(ActionClass);
 	if (existingAction)
 	{
 		// Stop the existing action
 		existingAction->StopAction(Instigator);
-		// Start the existing action
-		//existingAction->StartAction(Instigator);
+		//Proceed with restarting Effect as NewAction
 	}
 
 	USAction* NewAction = NewObject<USAction>(GetOwner(), ActionClass);
