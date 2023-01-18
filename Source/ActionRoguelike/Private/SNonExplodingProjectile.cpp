@@ -44,19 +44,18 @@ void ASNonExplodingProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedCom
 			return;
 		}
 	
-	/*Count is passed by reference, so any modifications made to it will also change the value of the
+	/*Count is passed by reference, any changes made to it will also change the value of the
 	Count in the HitCount Tmap, to keep track of the number of Hits applied to each actor.*/
 		int& Count = HitCount.FindOrAdd(OtherActor);
 		if (Count >= MaxHits) return;
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d"), Count));
 		Count++;
 	
-		// Apply Damage & Impulse
+	
+		// Apply Damage & Impulse if Count is less than or equal to MaxHits(int) for Current Key(Actor) in (Tmap)HitCount
 		if (USGameplayFunctionLibrary::ApplyDirectionalDamage(GetInstigator(), OtherActor, DamageAmount, SweepResult))
 		{
-			// We only explode if the target can be damaged, it ignores anything it Overlaps that it cannot Damage (it requires an AttributeComponent on the target)
-			//Explode();
-
+			
 			if (ActionComp && BurningActionClass && HasAuthority())
 			{
 				ActionComp->AddAction(GetInstigator(), BurningActionClass);
