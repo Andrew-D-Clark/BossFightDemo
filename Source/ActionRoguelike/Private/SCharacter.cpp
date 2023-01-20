@@ -76,6 +76,7 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);
 	// Used generic name 'SecondaryAttack' for binding
 	PlayerInputComponent->BindAction("SecondaryAttack", IE_Pressed, this, &ASCharacter::BlackHoleAttack);
+	PlayerInputComponent->BindAction("SlowAttack", IE_Pressed, this, &ASCharacter::SlowAttack);
 	PlayerInputComponent->BindAction("Dash", IE_Pressed, this, &ASCharacter::Dash);
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &ASCharacter::PrimaryInteract);
 
@@ -132,6 +133,12 @@ void ASCharacter::SprintStop()
 void ASCharacter::PrimaryAttack()
 {
 	ActionComp->StartActionByName(this, "PrimaryAttack");
+}
+
+void ASCharacter::SlowAttack()
+{
+	ActionComp->StartActionByName(this, "SlowAttack");
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("SlowAttack")));
 }
 
 

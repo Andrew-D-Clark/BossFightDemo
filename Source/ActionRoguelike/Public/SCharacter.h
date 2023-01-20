@@ -50,6 +50,8 @@ protected:
 
 	void PrimaryAttack();
 
+	void SlowAttack();
+
 	void BlackHoleAttack();
 
 	void Dash();
