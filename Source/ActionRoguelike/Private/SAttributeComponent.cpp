@@ -38,6 +38,11 @@ bool USAttributeComponent::IsFullHealth() const
 	return Health == HealthMax;
 }
 
+bool USAttributeComponent::IsFullRage() const
+{
+	return Rage == RageMax;
+}
+
 
 float USAttributeComponent::GetHealth() const
 {
@@ -97,6 +102,11 @@ bool USAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delt
 float USAttributeComponent::GetRage() const
 {
 	return Rage;
+}
+
+float USAttributeComponent::GetRageMax() const
+{
+	return RageMax;
 }
 
 

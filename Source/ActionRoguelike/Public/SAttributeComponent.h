@@ -78,6 +78,9 @@ public:
 	bool IsFullHealth() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Attributes")
+	bool IsFullRage() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Attributes")
 	float GetHealth() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Attributes")
@@ -94,6 +97,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	float GetRage() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Attributes")
+	float GetRageMax() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Attributes")
 	bool ApplyRage(AActor* InstigatorActor, float Delta);
