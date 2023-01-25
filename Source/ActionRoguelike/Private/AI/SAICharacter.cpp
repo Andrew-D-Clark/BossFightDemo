@@ -74,15 +74,31 @@ void ASAICharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponen
 				AIC->GetBrainComponent()->StopLogic("Killed");
 			}
 
-			// ragdoll
-			//GetMesh()->SetAllBodiesSimulatePhysics(true);
-			//GetMesh()->SetCollisionProfileName("Ragdoll");
-
 			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 			GetCharacterMovement()->DisableMovement();
 
 			// set lifespan
 			SetLifeSpan(0.1f);
+
+			//Only spawn pickup a certain percent of the time
+			int randomNumber = FMath::RandRange(0, 100);
+			if (randomNumber <= SpawnChancePercent)
+			{
+				UWorld* const World = GetWorld();
+				if (World)
+				{
+
+					// Get Character location and rotation
+					FVector SpawnLocation = GetActorLocation();
+					FRotator SpawnRotation = GetActorRotation();
+
+					//Add offset spawned pickup
+					SpawnLocation += PickupOffset;
+
+					// Spawn the pickup
+					AActor* SpawnedActor = World->SpawnActor<AActor>(PickupActor, SpawnLocation, SpawnRotation);
+				}
+			}
 		}
 	}
 }

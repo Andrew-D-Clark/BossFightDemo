@@ -24,6 +24,15 @@ public:
 
 protected:
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Pickups")
+	TSubclassOf<AActor> PickupActor;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Pickups")
+	FVector PickupOffset;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Pickups")
+	float SpawnChancePercent;
+
 	UPROPERTY()
 	USWorldUserWidget* ActiveHealthBar;
 
