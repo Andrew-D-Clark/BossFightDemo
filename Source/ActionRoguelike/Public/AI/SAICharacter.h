@@ -30,7 +30,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Pickups")
 	FVector PickupOffset;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Pickups")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (ClampMin = "0.0", ClampMax = "100.0"), Category = "Pickups")
 	float SpawnChancePercent;
 
 	UPROPERTY()

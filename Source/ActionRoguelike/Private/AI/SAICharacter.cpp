@@ -15,6 +15,7 @@
 #include "Kismet/GameplayStatics.h"
 
 
+
 ASAICharacter::ASAICharacter()
 {
 	PawnSensingComp = CreateDefaultSubobject<UPawnSensingComponent>("PawnSensingComp");
