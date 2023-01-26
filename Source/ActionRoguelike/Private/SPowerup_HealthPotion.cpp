@@ -13,7 +13,7 @@
 
 ASPowerup_HealthPotion::ASPowerup_HealthPotion()
 {
-	CreditCost = 50;
+	CreditCost = 0;
 }
 
 

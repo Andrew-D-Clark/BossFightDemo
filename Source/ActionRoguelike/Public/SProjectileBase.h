@@ -64,4 +64,6 @@ public:
 
 	ASProjectileBase();
 
+	void Tick(float DeltaTime);
+
 };
