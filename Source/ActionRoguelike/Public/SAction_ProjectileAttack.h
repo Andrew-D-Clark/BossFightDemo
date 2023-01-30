@@ -9,7 +9,7 @@
 class UAnimMontage;
 class UParticleSystem;
 class USoundBase;
-
+class USActionEffect;
 /**
  * 
  */
@@ -20,6 +20,9 @@ class ACTIONROGUELIKE_API USAction_ProjectileAttack : public USAction
 	
 protected:
 
+	UPROPERTY(EditDefaultsOnly, Category = "Damage")
+	TSubclassOf<USActionEffect> CoolDownActionClass;
+	
 	/* Sphere radius of the sweep to find desired target under crosshair. Adjusts final projectile direction */
 	UPROPERTY(EditAnywhere, Category="Targeting")
 	float SweepRadius;
@@ -47,6 +50,7 @@ protected:
 	/* Sound Effect to play (Can be Wave or Cue) */
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	USoundBase* CastingSound;
+
 
 	UFUNCTION()
 	void AttackDelay_Elapsed(ACharacter* InstigatorCharacter);

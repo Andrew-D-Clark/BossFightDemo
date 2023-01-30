@@ -20,6 +20,7 @@ ASMagicProjectile::ASMagicProjectile()
 void ASMagicProjectile::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
+	
 
 	// More consistent to bind here compared to Constructor which may fail to bind if Blueprint was created before adding this binding (or when using hotreload)
 	// PostInitializeComponent is the preferred way of binding any events.
@@ -41,6 +42,7 @@ void ASMagicProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedComponent,
 
 			// Parry Ability (GameplayTag Example)
 			USActionComponent* ActionComp = Cast<USActionComponent>(OtherActor->GetComponentByClass(USActionComponent::StaticClass()));
+			
 			if (ActionComp && ActionComp->ActiveGameplayTags.HasTag(ParryTag))
 			{
 				MoveComp->Velocity = -MoveComp->Velocity;

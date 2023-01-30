@@ -48,7 +48,7 @@ void USAction::StartAction_Implementation(AActor* Instigator)
 	{
 		TimeStarted = GetWorld()->TimeSeconds;
 	}
-
+	
 	GetOwningComponent()->OnActionStarted.Broadcast(GetOwningComponent(), this);
 }
 

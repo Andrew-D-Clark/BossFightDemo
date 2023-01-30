@@ -5,6 +5,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundBase.h"
 #include "GameFramework/Character.h"
+#include "SActionComponent.h"
+#include "SActionEffect.h"
 
 
 
@@ -22,6 +24,12 @@ USAction_ProjectileAttack::USAction_ProjectileAttack()
 void USAction_ProjectileAttack::StartAction_Implementation(AActor* Instigator)
 {
 	Super::StartAction_Implementation(Instigator);
+
+	USActionComponent* ActionComponent = Cast<USActionComponent>(Instigator->GetComponentByClass(USActionComponent::StaticClass()));
+	if (ActionComp && CoolDownActionClass)
+	{
+		ActionComponent->AddAction(Instigator, CoolDownActionClass);
+	}
 
 	ACharacter* Character = Cast<ACharacter>(Instigator);
 	if (Character)
