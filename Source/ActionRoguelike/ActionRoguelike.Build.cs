@@ -18,7 +18,6 @@ public class ActionRoguelike : ModuleRules
 			"GameplayTasks", 
 			"UMG", 
 			"GameplayTags", 
-			"OnlineSubsystem", 
 			"DeveloperSettings",
 			"SignificanceManager"
 		});
