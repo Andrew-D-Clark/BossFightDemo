@@ -81,26 +81,26 @@ void ASAICharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponen
 			// set lifespan
 			SetLifeSpan(0.1f);
 			if (InstigatorActor->HasAuthority())
-			{ 
-			//Only spawn pickup a certain percent of the time
-			int randomNumber = FMath::RandRange(0, 100);
-			if (randomNumber <= SpawnChancePercent)
 			{
-				UWorld* const World = GetWorld();
-				if (World)
+				//Only spawn pickup a certain percent of the time
+				int randomNumber = FMath::RandRange(0, 100);
+				if (randomNumber <= SpawnChancePercent)
 				{
+					UWorld* const World = GetWorld();
+					if (World)
+					{
 
-					// Get Character location and rotation
-					FVector SpawnLocation = GetActorLocation();
-					FRotator SpawnRotation = GetActorRotation();
+						// Get Character location and rotation
+						FVector SpawnLocation = GetActorLocation();
+						FRotator SpawnRotation = GetActorRotation();
 
-					//Add offset spawned pickup
-					SpawnLocation += PickupOffset;
+						//Add offset spawned pickup
+						SpawnLocation += PickupOffset;
 
-					// Spawn the pickup
-					AActor* SpawnedActor = World->SpawnActor<AActor>(PickupActor, SpawnLocation, SpawnRotation);
+						// Spawn the pickup
+						AActor* SpawnedActor = World->SpawnActor<AActor>(PickupActor, SpawnLocation, SpawnRotation);
+					}
 				}
-			}
 			}
 		}
 	}
@@ -144,12 +144,15 @@ void ASAICharacter::OnPawnSeen(APawn* Pawn)
 
 void ASAICharacter::MulticastPawnSeen_Implementation()
 {
-	USWorldUserWidget* NewWidget = CreateWidget<USWorldUserWidget>(GetWorld(), SpottedWidgetClass);
-	if (NewWidget)
+	if (SpottedWidgetClass != nullptr)
 	{
-		NewWidget->AttachedActor = this;
-		// Index of 10 (or anything higher than default of 0) places this on top of any other widget.
-		// May end up behind the minion health bar otherwise.
-		NewWidget->AddToViewport(10);
+		USWorldUserWidget* NewWidget = CreateWidget<USWorldUserWidget>(GetWorld(), SpottedWidgetClass);
+		if (NewWidget)
+		{
+			NewWidget->AttachedActor = this;
+			// Index of 10 (or anything higher than default of 0) places this on top of any other widget.
+			// May end up behind the minion health bar otherwise.
+			NewWidget->AddToViewport(10);
+		}
 	}
 }

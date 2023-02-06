@@ -84,6 +84,7 @@ void USActionComponent::AddAction(AActor* Instigator, TSubclassOf<USAction> Acti
 	USAction* existingAction = GetAction(ActionClass);
 	if (existingAction)
 	{
+		//return;
 		// Stop the existing action
 		existingAction->StopAction(Instigator);
 		//Proceed with restarting Effect as NewAction

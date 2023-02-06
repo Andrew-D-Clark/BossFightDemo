@@ -138,7 +138,7 @@ void ASCharacter::PrimaryAttack()
 void ASCharacter::SlowAttack()
 {
 	ActionComp->StartActionByName(this, "SlowAttack");
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("SlowAttack")));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("SlowAttack")));
 }
 
 
