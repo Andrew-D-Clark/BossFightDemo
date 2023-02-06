@@ -80,7 +80,8 @@ void ASAICharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponen
 
 			// set lifespan
 			SetLifeSpan(0.1f);
-
+			if (InstigatorActor->HasAuthority())
+			{ 
 			//Only spawn pickup a certain percent of the time
 			int randomNumber = FMath::RandRange(0, 100);
 			if (randomNumber <= SpawnChancePercent)
@@ -99,6 +100,7 @@ void ASAICharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponen
 					// Spawn the pickup
 					AActor* SpawnedActor = World->SpawnActor<AActor>(PickupActor, SpawnLocation, SpawnRotation);
 				}
+			}
 			}
 		}
 	}
