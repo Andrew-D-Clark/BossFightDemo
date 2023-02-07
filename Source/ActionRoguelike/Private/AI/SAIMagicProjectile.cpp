@@ -29,35 +29,38 @@ void ASAIMagicProjectile::PostInitializeComponents()
 
 void ASAIMagicProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor->IsA(GetInstigator()->GetClass()))
+	if (GetInstigator())
 	{
-		return;
-	}
-	else
-	{
-		if (OtherActor && OtherActor != GetInstigator())
+		if (OtherActor->IsA(GetInstigator()->GetClass()))
 		{
-			//static FGameplayTag Tag = FGameplayTag::RequestGameplayTag("Status.Parrying");
-
-			// Parry Ability (GameplayTag Example)
-			USActionComponent* ActionComp = Cast<USActionComponent>(OtherActor->GetComponentByClass(USActionComponent::StaticClass()));
-			if (ActionComp && ActionComp->ActiveGameplayTags.HasTag(ParryTag))
+			return;
+		}
+		else
+		{
+			if (OtherActor && OtherActor != GetInstigator())
 			{
-				MoveComp->Velocity = -MoveComp->Velocity;
+				//static FGameplayTag Tag = FGameplayTag::RequestGameplayTag("Status.Parrying");
 
-				SetInstigator(Cast<APawn>(OtherActor));
-				return;
-			}
-
-			// Apply Damage & Impulse
-			if (USGameplayFunctionLibrary::ApplyDirectionalDamage(GetInstigator(), OtherActor, DamageAmount, SweepResult))
-			{
-				// We only explode if the target can be damaged, it ignores anything it Overlaps that it cannot Damage (it requires an AttributeComponent on the target)
-				Explode();
-
-				if (ActionComp && BurningActionClass && HasAuthority())
+				// Parry Ability (GameplayTag Example)
+				USActionComponent* ActionComp = Cast<USActionComponent>(OtherActor->GetComponentByClass(USActionComponent::StaticClass()));
+				if (ActionComp && ActionComp->ActiveGameplayTags.HasTag(ParryTag))
 				{
-					ActionComp->AddAction(GetInstigator(), BurningActionClass);
+					MoveComp->Velocity = -MoveComp->Velocity;
+
+					SetInstigator(Cast<APawn>(OtherActor));
+					return;
+				}
+
+				// Apply Damage & Impulse
+				if (USGameplayFunctionLibrary::ApplyDirectionalDamage(GetInstigator(), OtherActor, DamageAmount, SweepResult))
+				{
+					// We only explode if the target can be damaged, it ignores anything it Overlaps that it cannot Damage (it requires an AttributeComponent on the target)
+					Explode();
+
+					if (ActionComp && BurningActionClass && HasAuthority())
+					{
+						ActionComp->AddAction(GetInstigator(), BurningActionClass);
+					}
 				}
 			}
 		}
