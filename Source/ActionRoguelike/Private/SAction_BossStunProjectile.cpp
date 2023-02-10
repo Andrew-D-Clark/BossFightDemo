@@ -55,6 +55,7 @@ void USAction_BossStunProjectile::AttackDelay_Elapsed(ACharacter* InstigatorChar
 	{
 		FVector HandLocation = InstigatorCharacter->GetMesh()->GetSocketLocation(HandSocketName);
 
+		//Increase spawn height to avoid exploding on floor on spawn
 		HandLocation.Z += 100.0f;
 
 		// We trace against the environment first to find whats under the player crosshair.
