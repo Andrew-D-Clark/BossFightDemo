@@ -48,7 +48,7 @@ void ASNonExplodingProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedCom
 	Count in the HitCount Tmap, to keep track of the number of Hits applied to each actor.*/
 		int& Count = HitCount.FindOrAdd(OtherActor);
 		if (Count >= MaxHits) return;
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d"), Count));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d"), Count));
 		Count++;
 	
 	

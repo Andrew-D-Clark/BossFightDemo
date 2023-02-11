@@ -41,6 +41,7 @@ void USAction_SpawnAI::StartAction_Implementation(AActor* Instigator)
 			GetWorld()->GetTimerManager().SetTimer(TimerHandle_AttackDelay, Delegate, AttackAnimDelay, false);
 		}
 	}
+
 }
 
 

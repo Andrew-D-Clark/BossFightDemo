@@ -123,7 +123,7 @@ void ASGameModeBase::SpawnBotTimerElapsed()
 		return;
 	}
 
-	LogOnScreen(this, FString::Printf(TEXT("Available SpawnCredits: %f"), AvailableSpawnCredit));
+	//LogOnScreen(this, FString::Printf(TEXT("Available SpawnCredits: %f"), AvailableSpawnCredit));
 
 	// Count alive bots before spawning
 	int32 NrOfAliveBots = 0;
