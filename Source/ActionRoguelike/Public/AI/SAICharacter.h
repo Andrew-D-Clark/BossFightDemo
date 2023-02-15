@@ -28,6 +28,9 @@ protected:
 	TSubclassOf<AActor> PickupActor;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Pickups")
+	TArray<TSubclassOf<AActor>>PickupActorArray;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Pickups")
 	FVector PickupOffset;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (ClampMin = "0.0", ClampMax = "100.0"), Category = "Pickups")

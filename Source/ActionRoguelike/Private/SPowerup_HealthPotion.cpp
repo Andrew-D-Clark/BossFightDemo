@@ -48,7 +48,8 @@ FText ASPowerup_HealthPotion::GetInteractText_Implementation(APawn* InstigatorPa
 		return LOCTEXT("HealthPotion_FullHealthWarning", "Already at full health.");
 	}
 
-	return FText::Format(LOCTEXT("HealthPotion_InteractMessage", "Cost {0} Credits. Restores health to maximum."), CreditCost);
+	//return FText::Format(LOCTEXT("HealthPotion_InteractMessage", "Cost {0} Credits. Restores health to maximum."), CreditCost);
+	return FText::Format(LOCTEXT("HealthPotion_InteractMessage", "Restores health to maximum."), CreditCost);
 }
 
 

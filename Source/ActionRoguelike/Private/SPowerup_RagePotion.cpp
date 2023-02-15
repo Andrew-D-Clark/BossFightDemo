@@ -42,7 +42,8 @@ FText ASPowerup_RagePotion::GetInteractText_Implementation(APawn* InstigatorPawn
 		return LOCTEXT("HealthPotion_FullHealthWarning", "Already at full mana.");
 	}
 
-	return FText::Format(LOCTEXT("HealthPotion_InteractMessage", "Cost {0} Credits. Restores mana to maximum."), CreditCost);
+	//return FText::Format(LOCTEXT("HealthPotion_InteractMessage", "Cost {0} Credits. Restores mana to maximum."), CreditCost);
+	return FText::Format(LOCTEXT("HealthPotion_InteractMessage", "Restores mana to maximum."), CreditCost);
 }
 
 #undef LOCTEXT_NAMESPACE

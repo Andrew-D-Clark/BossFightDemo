@@ -97,8 +97,12 @@ void ASAICharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponen
 						//Add offset spawned pickup
 						SpawnLocation += PickupOffset;
 
+						int32 PickupArraySize = PickupActorArray.Num();
+						int32 RandomIndex = FMath::RandRange(0, PickupArraySize - 1);
+						
+
 						// Spawn the pickup
-						AActor* SpawnedActor = World->SpawnActor<AActor>(PickupActor, SpawnLocation, SpawnRotation);
+						AActor* SpawnedActor = World->SpawnActor<AActor>(PickupActorArray[RandomIndex], SpawnLocation, SpawnRotation);
 					}
 				}
 			}
