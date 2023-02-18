@@ -55,11 +55,14 @@ void ASAICharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponen
 
 		if (ActiveHealthBar == nullptr)
 		{
-			ActiveHealthBar = CreateWidget<USWorldUserWidget>(GetWorld(), HealthBarWidgetClass);
-			if (ActiveHealthBar)
+			if (NewHealth > 0.0f)
 			{
-				ActiveHealthBar->AttachedActor = this;
-				ActiveHealthBar->AddToViewport();
+				ActiveHealthBar = CreateWidget<USWorldUserWidget>(GetWorld(), HealthBarWidgetClass);
+				if (ActiveHealthBar)
+				{
+					ActiveHealthBar->AttachedActor = this;
+					ActiveHealthBar->AddToViewport();
+				}
 			}
 		}
 
