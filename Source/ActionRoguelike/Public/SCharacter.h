@@ -13,6 +13,7 @@ class UAnimMontage;
 class USAttributeComponent;
 class UParticleSystem;
 class USActionComponent;
+class USWorldUserWidget;
 
 UCLASS()
 class ACTIONROGUELIKE_API ASCharacter : public ACharacter
@@ -20,6 +21,13 @@ class ACTIONROGUELIKE_API ASCharacter : public ACharacter
 	GENERATED_BODY()
 
 protected:
+
+	//Testing Adding and Removing
+	UPROPERTY()
+		USWorldUserWidget* ActiveHealthBar;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+		TSubclassOf<UUserWidget> HealthBarWidgetClass;
 
 	/* VisibleAnywhere = read-only, still useful to view in-editor and enforce a convention. */
 	UPROPERTY(VisibleAnywhere, Category = "Effects")
@@ -57,6 +65,8 @@ protected:
 	void Dash();
 
 	void PrimaryInteract();
+
+
 
 	UFUNCTION()
 	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta);

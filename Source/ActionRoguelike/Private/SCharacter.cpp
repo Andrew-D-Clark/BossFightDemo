@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "SActionComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "SWorldUserWidget.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -45,6 +46,8 @@ ASCharacter::ASCharacter()
 	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
 
 	TimeToHitParamName = "TimeToHit";
+
+
 }
 
 
@@ -53,6 +56,18 @@ void ASCharacter::PostInitializeComponents()
 	Super::PostInitializeComponents();
 
 	AttributeComp->OnHealthChanged.AddDynamic(this, &ASCharacter::OnHealthChanged);
+
+	if (ActiveHealthBar == nullptr)
+		{
+			ActiveHealthBar = CreateWidget<USWorldUserWidget>(GetWorld(), HealthBarWidgetClass);
+			if (ActiveHealthBar)
+			{
+				ActiveHealthBar->AttachedActor = this;
+				ActiveHealthBar->AddToViewport();
+				ActiveHealthBar->SetVisibility(ESlateVisibility::Hidden);
+			}
+		}
+
 }
 
 
@@ -169,6 +184,18 @@ void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent*
 	// Damaged
 	if (Delta < 0.0f)
 	{
+
+		//Testing Adding and Removing
+		/*if (ActiveHealthBar == nullptr)
+		{
+			ActiveHealthBar = CreateWidget<USWorldUserWidget>(GetWorld(), HealthBarWidgetClass);
+			if (ActiveHealthBar)
+			{
+				ActiveHealthBar->AttachedActor = this;
+				ActiveHealthBar->AddToViewport();
+			}
+		}*/
+		ActiveHealthBar->SetVisibility(ESlateVisibility::Visible);
 		GetMesh()->SetScalarParameterValueOnMaterials(TimeToHitParamName, GetWorld()->TimeSeconds);
 
 		// Rage added equal to damage received (Abs to turn into positive rage number)
@@ -183,5 +210,12 @@ void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent*
 		DisableInput(PC);
 
 		SetLifeSpan(5.0f);
+	}
+	//Testing Adding and Removing
+	if (NewHealth == 100)
+	{
+		ActiveHealthBar->SetVisibility(ESlateVisibility::Hidden);
+		//ActiveHealthBar->RemoveFromParent();
+		//ActiveHealthBar = nullptr;
 	}
 }
