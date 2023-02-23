@@ -89,7 +89,8 @@ void USAction_BossStunProjectile::AttackDelay_Elapsed(ACharacter* InstigatorChar
 
 		// find new direction/rotation from Hand pointing to impact point in world.
 		FRotator ProjRotation = (TraceEnd - HandLocation).Rotation();
-
+		const FRotator BaseRotation = (TraceEnd - HandLocation).Rotation();
+		ProjRotation = FRotator(0, BaseRotation.Yaw, 0);
 		FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 	}

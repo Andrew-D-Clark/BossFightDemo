@@ -84,27 +84,33 @@ void USAction_TripleProjectileAttack::AttackDelay_Elapsed(ACharacter* Instigator
 
 		// find new direction/rotation from Hand pointing to impact point in world.
 		FRotator ProjRotation = (TraceEnd - HandLocation).Rotation();
-
+		const FRotator BaseRotation = (TraceEnd - HandLocation).Rotation();
+		ProjRotation = FRotator(0, BaseRotation.Yaw, 0);
 		FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 
 		// Spawn 2nd projectile
-		ProjRotation = (TraceEnd - HandLocation).Rotation() + FRotator(0, 10, 0);
+		
+		ProjRotation = FRotator(0, BaseRotation.Yaw + 10, 0);
 		SpawnTM = FTransform(ProjRotation, HandLocation);
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 
 		// Spawn 3rd projectile
-		ProjRotation = (TraceEnd - HandLocation).Rotation() + FRotator(0, -10, 0);
+		
+		ProjRotation = FRotator(0, BaseRotation.Yaw - 10, 0);
 		SpawnTM = FTransform(ProjRotation, HandLocation);
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 
 		// Spawn 4th projectile
-		ProjRotation = (TraceEnd - HandLocation).Rotation() + FRotator(0, 20, 0);
+		
+		ProjRotation = FRotator(0, BaseRotation.Yaw + 20, 0);
 		SpawnTM = FTransform(ProjRotation, HandLocation);
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 
 		// Spawn 5th projectile
-		ProjRotation = (TraceEnd - HandLocation).Rotation() + FRotator(0, -20, 0);
+		/*ProjRotation = (TraceEnd - HandLocation).Rotation() + FRotator(0, -20, 0);
+		SpawnTM = FTransform(ProjRotation, HandLocation);*/
+		ProjRotation = FRotator(0, BaseRotation.Yaw - 20, 0);
 		SpawnTM = FTransform(ProjRotation, HandLocation);
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 	}
