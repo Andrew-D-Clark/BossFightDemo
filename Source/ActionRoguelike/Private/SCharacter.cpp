@@ -46,7 +46,7 @@ ASCharacter::ASCharacter()
 	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
 
 	TimeToHitParamName = "TimeToHit";
-
+	TimeToHealParamName = "TimeToHeal";
 
 }
 
@@ -201,6 +201,11 @@ void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent*
 		// Rage added equal to damage received (Abs to turn into positive rage number)
 		float RageDelta = FMath::Abs(Delta);
 		AttributeComp->ApplyRage(InstigatorActor, RageDelta);
+	}
+	//Healed
+	if (Delta > 0.0f)
+	{
+		GetMesh()->SetScalarParameterValueOnMaterials(TimeToHealParamName, GetWorld()->TimeSeconds);
 	}
 
 	// Died
