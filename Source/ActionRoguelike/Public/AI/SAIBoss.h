@@ -38,6 +38,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Effects")
 		FName TimeToHitParamName;
 
+	UPROPERTY(VisibleAnywhere, Category = "Effects")
+		FName TimeToHealParamName;
+
 	/* Key for AI Blackboard 'TargetActor' */
 	UPROPERTY(VisibleAnywhere, Category = "Effects")
 		FName TargetActorKey;

@@ -30,6 +30,7 @@ ASAIBoss::ASAIBoss()
 	GetMesh()->SetGenerateOverlapEvents(true);
 
 	TimeToHitParamName = "TimeToHit";
+	TimeToHealParamName = "TimeToHeal";
 	TargetActorKey = "TargetActor";
 }
 
@@ -45,6 +46,12 @@ void ASAIBoss::PostInitializeComponents()
 
 void ASAIBoss::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta)
 {
+	//Healed
+	if (Delta > 0.0f)
+	{
+		GetMesh()->SetScalarParameterValueOnMaterials(TimeToHealParamName, GetWorld()->TimeSeconds);
+	}
+	//Damaged
 	if (Delta < 0.0f)
 	{
 		if (InstigatorActor != this)
@@ -64,6 +71,7 @@ void ASAIBoss::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* Ow
 
 		GetMesh()->SetScalarParameterValueOnMaterials(TimeToHitParamName, GetWorld()->TimeSeconds);
 
+	
 		// Died
 		if (NewHealth <= 0.0f)
 		{
