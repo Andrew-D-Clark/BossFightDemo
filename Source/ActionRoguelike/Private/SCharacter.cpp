@@ -47,6 +47,7 @@ ASCharacter::ASCharacter()
 
 	TimeToHitParamName = "TimeToHit";
 	TimeToHealParamName = "TimeToHeal";
+	TimeToRestoreManaParamName = "TimeToRestoreMana";
 
 }
 
@@ -56,6 +57,7 @@ void ASCharacter::PostInitializeComponents()
 	Super::PostInitializeComponents();
 
 	AttributeComp->OnHealthChanged.AddDynamic(this, &ASCharacter::OnHealthChanged);
+	AttributeComp->OnRageChanged.AddDynamic(this, &ASCharacter::OnRageChanged);
 
 	if (ActiveHealthBar == nullptr)
 		{
@@ -208,7 +210,7 @@ void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent*
 		GetMesh()->SetScalarParameterValueOnMaterials(TimeToHealParamName, GetWorld()->TimeSeconds);
 	}
 
-	// Died
+	//Died
 	if (NewHealth <= 0.0f && Delta < 0.0f)
 	{
 		APlayerController* PC = Cast<APlayerController>(GetController());
@@ -222,5 +224,13 @@ void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent*
 		ActiveHealthBar->SetVisibility(ESlateVisibility::Hidden);
 		//ActiveHealthBar->RemoveFromParent();
 		//ActiveHealthBar = nullptr;
+	}
+}
+
+void ASCharacter::OnRageChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewRage, float Delta)
+{
+	if (Delta > 15.0f)
+	{
+		GetMesh()->SetScalarParameterValueOnMaterials(TimeToRestoreManaParamName, GetWorld()->TimeSeconds);
 	}
 }

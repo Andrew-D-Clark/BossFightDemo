@@ -36,6 +36,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Effects")
 	FName TimeToHealParamName;
 
+	UPROPERTY(VisibleAnywhere, Category = "Effects")
+	FName TimeToRestoreManaParamName;
+
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComp;
 
@@ -73,6 +76,10 @@ protected:
 
 	UFUNCTION()
 	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta);
+
+	UFUNCTION()
+	void OnRageChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewRage, float Delta);
+
 
 	virtual void PostInitializeComponents() override;
 

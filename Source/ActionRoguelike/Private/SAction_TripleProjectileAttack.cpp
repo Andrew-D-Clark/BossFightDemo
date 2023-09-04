@@ -108,8 +108,6 @@ void USAction_TripleProjectileAttack::AttackDelay_Elapsed(ACharacter* Instigator
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 
 		// Spawn 5th projectile
-		/*ProjRotation = (TraceEnd - HandLocation).Rotation() + FRotator(0, -20, 0);
-		SpawnTM = FTransform(ProjRotation, HandLocation);*/
 		ProjRotation = FRotator(0, BaseRotation.Yaw - 20, 0);
 		SpawnTM = FTransform(ProjRotation, HandLocation);
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
