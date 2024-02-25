@@ -48,8 +48,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Attack")
 		USoundBase* CastingSound;
 
+
 	UFUNCTION()
 		void AttackDelay_Elapsed(ACharacter* InstigatorCharacter);
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
+		int ProjectileCount;
 
 public:
 

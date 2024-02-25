@@ -85,33 +85,72 @@ void USAction_TripleProjectileAttack::AttackDelay_Elapsed(ACharacter* Instigator
 		// find new direction/rotation from Hand pointing to impact point in world.
 		FRotator ProjRotation = (TraceEnd - HandLocation).Rotation();
 		const FRotator BaseRotation = (TraceEnd - HandLocation).Rotation();
-		ProjRotation = FRotator(0, BaseRotation.Yaw, 0);
-		FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
-		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+		int OffsetIncrement = 10;
+		int Offset = 0;
+		for (int ProjectileCountIndex = 0; ProjectileCountIndex < ProjectileCount; ProjectileCountIndex++)
+		{
+			if (ProjectileCountIndex % 2 == 0) {
+				// Even indices, increment Offset
+				Offset += OffsetIncrement;
+			}
+			else {
+				// Odd indices, decrement Offset
+				Offset -= OffsetIncrement;
+			}
 
-		// Spawn 2nd projectile
-		
-		ProjRotation = FRotator(0, BaseRotation.Yaw + 10, 0);
-		SpawnTM = FTransform(ProjRotation, HandLocation);
-		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+			// Increase OffsetIncrement every 2nd index
+			if (ProjectileCountIndex % 2 == 1) {
+				OffsetIncrement += 10;
+			}
 
-		// Spawn 3rd projectile
-		
-		ProjRotation = FRotator(0, BaseRotation.Yaw - 10, 0);
-		SpawnTM = FTransform(ProjRotation, HandLocation);
-		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
-
-		// Spawn 4th projectile
-		
-		ProjRotation = FRotator(0, BaseRotation.Yaw + 20, 0);
-		SpawnTM = FTransform(ProjRotation, HandLocation);
-		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
-
-		// Spawn 5th projectile
-		ProjRotation = FRotator(0, BaseRotation.Yaw - 20, 0);
-		SpawnTM = FTransform(ProjRotation, HandLocation);
-		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+			ProjRotation = FRotator(0, BaseRotation.Yaw, Offset);
+			FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
+			GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+		}
 	}
 
 	StopAction(InstigatorCharacter);
 }
+
+//void USAction_TripleProjectileAttack::AttackDelay_Elapsed(ACharacter* InstigatorCharacter)
+//{
+//	if (ensureAlways(ProjectileClass))
+//	{
+//		FVector HandLocation = InstigatorCharacter->GetMesh()->GetSocketLocation(HandSocketName);
+//
+//		HandLocation.Z += 100.0f;
+//
+//		// We trace against the environment first to find whats under the player crosshair.
+//		// We use the hit location to adjust the projectile launch direction so it will hit what is under the crosshair rather than shoot straight forward from the player hands.
+//
+//		FActorSpawnParameters SpawnParams;
+//		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+//		SpawnParams.Instigator = InstigatorCharacter;
+//
+//		FCollisionShape Shape;
+//		Shape.SetSphere(SweepRadius);
+//
+//		// Ignore Player
+//		FCollisionQueryParams Params;
+//		Params.AddIgnoredActor(InstigatorCharacter);
+//
+//		FVector TraceDirection = InstigatorCharacter->GetControlRotation().Vector();
+//
+//		// Add sweep radius onto start to avoid the sphere clipping into floor/walls the camera is directly against.
+//		FVector TraceStart = InstigatorCharacter->GetPawnViewLocation() + (TraceDirection * SweepRadius);
+//		// endpoint far into the look-at distance (not too far, still adjust somewhat towards crosshair on a miss)
+//		FVector TraceEnd = TraceStart + (TraceDirection * SweepDistanceFallback);
+//
+//		FHitResult Hit;
+//		// returns true if we got to a blocking hit (Channel1="Projectile" defined in DefaultGame.ini)
+//		if (GetWorld()->SweepSingleByChannel(Hit, TraceStart, TraceEnd, FQuat::Identity, ECC_GameTraceChannel1, Shape, Params))
+//		{
+//			// Overwrite trace end with impact point in world
+//			TraceEnd = Hit.ImpactPoint;
+//		}
+//
+		
+//		}
+//
+//		StopAction(InstigatorCharacter);
+//	}

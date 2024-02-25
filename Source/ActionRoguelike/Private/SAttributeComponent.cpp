@@ -85,7 +85,7 @@ bool USAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delt
 		}
 
 		// Died
-		if (ActualDelta < 0.0f && Health == 0.0f)
+		if (ActualDelta <=  0.0f && Health == 0.0f)
 		{
 			ASGameModeBase* GM = GetWorld()->GetAuthGameMode<ASGameModeBase>();
 			if (GM)
