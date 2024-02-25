@@ -58,12 +58,11 @@ protected:
 		int ProjectileCountMin;
 	UPROPERTY(EditAnywhere, Category = "Attack")
 		int OffsetModifierMax;
-
 	UPROPERTY(EditAnywhere, Category = "Attack")
 		int OffsetIncrementMax;
 	UPROPERTY(EditAnywhere, Category = "Attack")
 		int OffsetModifierMin;
-		UPROPERTY(EditAnywhere, Category = "Attack")
+	UPROPERTY(EditAnywhere, Category = "Attack")
 		int OffsetIncrementMin;
 		
 
