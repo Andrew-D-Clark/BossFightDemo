@@ -85,25 +85,23 @@ void USAction_TripleProjectileAttack::AttackDelay_Elapsed(ACharacter* Instigator
 		// find new direction/rotation from Hand pointing to impact point in world.
 		FRotator ProjRotation = (TraceEnd - HandLocation).Rotation();
 		const FRotator BaseRotation = (TraceEnd - HandLocation).Rotation();
-		int OffsetIncrement = 10;
-		int Offset = 0;
+
+		// Generate random values for ProjectileCount and OffsetModifier
+		int ProjectileCount = FMath::RandRange(ProjectileCountMin, ProjectileCountMax);
+		int OffsetModifier = FMath::RandRange(OffsetModifierMin, OffsetModifierMax);
+		int OffsetIncrement = FMath::RandRange(OffsetIncrementMin, OffsetIncrementMax);
+
 		for (int ProjectileCountIndex = 0; ProjectileCountIndex < ProjectileCount; ProjectileCountIndex++)
 		{
+			int Offset = 0;
 			if (ProjectileCountIndex % 2 == 0) {
-				// Even indices, increment Offset
-				Offset += OffsetIncrement;
+				Offset = ProjectileCountIndex / 2 * OffsetModifier * OffsetIncrement;
 			}
 			else {
-				// Odd indices, decrement Offset
-				Offset -= OffsetIncrement;
+				Offset = -1 * (ProjectileCountIndex / 2 * OffsetModifier * OffsetIncrement);
 			}
 
-			// Increase OffsetIncrement every 2nd index
-			if (ProjectileCountIndex % 2 == 1) {
-				OffsetIncrement += 10;
-			}
-
-			ProjRotation = FRotator(0, BaseRotation.Yaw, Offset);
+			ProjRotation = FRotator(0, BaseRotation.Yaw + Offset, 0);
 			FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
 			GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 		}
