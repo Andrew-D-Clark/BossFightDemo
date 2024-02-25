@@ -88,10 +88,10 @@ void USAction_TripleProjectileAttack::AttackDelay_Elapsed(ACharacter* Instigator
 
 		// Generate random values for ProjectileCount and OffsetModifier
 		int ProjectileCount = FMath::RandRange(ProjectileCountMin, ProjectileCountMax);
-		int OffsetModifier = FMath::RandRange(OffsetModifierMin, OffsetModifierMax);
 		int OffsetIncrement = FMath::RandRange(OffsetIncrementMin, OffsetIncrementMax);
+		int OffsetModifier = FMath::RandRange(OffsetModifierMin, OffsetModifierMax);
 
-		for (int ProjectileCountIndex = 0; ProjectileCountIndex < ProjectileCount; ProjectileCountIndex++)
+		for (int ProjectileCountIndex = 0; ProjectileCountIndex <= ProjectileCount; ProjectileCountIndex++)
 		{
 			int Offset = 0;
 			if (ProjectileCountIndex % 2 == 0) {
