@@ -86,11 +86,12 @@ void USAction_TripleProjectileAttack::AttackDelay_Elapsed(ACharacter* Instigator
 		FRotator ProjRotation = (TraceEnd - HandLocation).Rotation();
 		const FRotator BaseRotation = (TraceEnd - HandLocation).Rotation();
 
-		// Generate random values for ProjectileCount and OffsetModifier
+		// Generate random values for ProjectileCount, OffsetIncrement, and OffsetModifier using blueprint set min and max value
 		int ProjectileCount = FMath::RandRange(ProjectileCountMin, ProjectileCountMax);
 		int OffsetIncrement = FMath::RandRange(OffsetIncrementMin, OffsetIncrementMax);
 		int OffsetModifier = FMath::RandRange(OffsetModifierMin, OffsetModifierMax);
 
+		// iterate over projectiles to spawn
 		for (int ProjectileCountIndex = 0; ProjectileCountIndex <= ProjectileCount; ProjectileCountIndex++)
 		{
 			int Offset = 0;
@@ -101,6 +102,7 @@ void USAction_TripleProjectileAttack::AttackDelay_Elapsed(ACharacter* Instigator
 				Offset = -1 * (ProjectileCountIndex / 2 * OffsetModifier * OffsetIncrement);
 			}
 
+			// spawn projectiles with offset
 			ProjRotation = FRotator(0, BaseRotation.Yaw + Offset, 0);
 			FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
 			GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
@@ -109,46 +111,3 @@ void USAction_TripleProjectileAttack::AttackDelay_Elapsed(ACharacter* Instigator
 
 	StopAction(InstigatorCharacter);
 }
-
-//void USAction_TripleProjectileAttack::AttackDelay_Elapsed(ACharacter* InstigatorCharacter)
-//{
-//	if (ensureAlways(ProjectileClass))
-//	{
-//		FVector HandLocation = InstigatorCharacter->GetMesh()->GetSocketLocation(HandSocketName);
-//
-//		HandLocation.Z += 100.0f;
-//
-//		// We trace against the environment first to find whats under the player crosshair.
-//		// We use the hit location to adjust the projectile launch direction so it will hit what is under the crosshair rather than shoot straight forward from the player hands.
-//
-//		FActorSpawnParameters SpawnParams;
-//		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-//		SpawnParams.Instigator = InstigatorCharacter;
-//
-//		FCollisionShape Shape;
-//		Shape.SetSphere(SweepRadius);
-//
-//		// Ignore Player
-//		FCollisionQueryParams Params;
-//		Params.AddIgnoredActor(InstigatorCharacter);
-//
-//		FVector TraceDirection = InstigatorCharacter->GetControlRotation().Vector();
-//
-//		// Add sweep radius onto start to avoid the sphere clipping into floor/walls the camera is directly against.
-//		FVector TraceStart = InstigatorCharacter->GetPawnViewLocation() + (TraceDirection * SweepRadius);
-//		// endpoint far into the look-at distance (not too far, still adjust somewhat towards crosshair on a miss)
-//		FVector TraceEnd = TraceStart + (TraceDirection * SweepDistanceFallback);
-//
-//		FHitResult Hit;
-//		// returns true if we got to a blocking hit (Channel1="Projectile" defined in DefaultGame.ini)
-//		if (GetWorld()->SweepSingleByChannel(Hit, TraceStart, TraceEnd, FQuat::Identity, ECC_GameTraceChannel1, Shape, Params))
-//		{
-//			// Overwrite trace end with impact point in world
-//			TraceEnd = Hit.ImpactPoint;
-//		}
-//
-		
-//		}
-//
-//		StopAction(InstigatorCharacter);
-//	}
